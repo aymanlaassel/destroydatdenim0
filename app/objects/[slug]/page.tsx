@@ -53,12 +53,20 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               {product.name}
             </h1>
             <div className="text-[15px] text-muted mt-3 tabular-nums">
-              {formatPrice(product.priceCents, product.currency)}
+              {product.status === "soon"
+                ? "coming soon"
+                : formatPrice(product.priceCents, product.currency)}
             </div>
 
             <div className="my-10 h-px bg-line" />
 
-            <AcquireButton slug={product.slug} sizes={product.sizes} />
+            {product.status === "soon" ? (
+              <div className="text-[12px] uppercase tracking-[0.18em] text-muted border border-line py-4 text-center">
+                next drop
+              </div>
+            ) : (
+              <AcquireButton slug={product.slug} sizes={product.sizes} />
+            )}
 
             <div className="mt-10 space-y-1.5 text-[12px] text-muted">
               <p>{product.material}</p>

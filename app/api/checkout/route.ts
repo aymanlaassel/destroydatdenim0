@@ -14,6 +14,9 @@ export async function POST(req: NextRequest) {
     if (!product) {
       return NextResponse.json({ error: "not found" }, { status: 404 });
     }
+    if (product.status === "soon") {
+      return NextResponse.json({ error: "not yet available" }, { status: 400 });
+    }
     if (!product.sizes.includes(size)) {
       return NextResponse.json({ error: "size unavailable" }, { status: 400 });
     }

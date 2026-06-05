@@ -26,7 +26,9 @@ export function ProductCard({ product: p }: { product: Product }) {
       <div className="mt-4 flex items-baseline justify-between gap-4">
         <span className="text-[13px] tracking-[0.01em]">{p.name}</span>
         <span className="text-[13px] text-muted tabular-nums">
-          {formatPrice(p.priceCents, p.currency)}
+          {p.status === "soon"
+            ? "soon"
+            : formatPrice(p.priceCents, p.currency)}
         </span>
       </div>
     </Link>
