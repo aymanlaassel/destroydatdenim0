@@ -74,6 +74,25 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               {product.note && <p>{product.note}</p>}
             </div>
 
+            <div className="mt-10 border-t border-line pt-6 space-y-4">
+              <details className="group cursor-pointer">
+                <summary className="text-[11px] uppercase tracking-[0.16em] text-muted hover:text-fg transition-colors list-none flex items-center gap-2">
+                  <span className="group-open:rotate-90 transition-transform">→</span>
+                  shipping & returns
+                </summary>
+                <div className="mt-3 pl-6 text-[12px] text-muted space-y-2">
+                  <p>Orders ship within 3–5 business days.</p>
+                  <p>
+                    Returns accepted within 14 days. See our{" "}
+                    <a href="/returns" className="text-fg hover:text-muted transition-colors">
+                      full returns policy
+                    </a>
+                    .
+                  </p>
+                </div>
+              </details>
+            </div>
+
             <Link
               href="/objects"
               className="inline-block mt-12 text-[11px] uppercase tracking-[0.16em] text-muted hover:text-fg transition-colors"
