@@ -29,8 +29,8 @@ export function AcquireButton({ slug, sizes }: Props) {
         const body = await res.json().catch(() => ({}));
         throw new Error(body.error ?? "checkout unavailable");
       }
-      const { url } = await res.json();
-      if (url) window.location.href = url;
+      setError("Checkout coming soon via Shopify.");
+      setLoading(false);
     } catch (e) {
       setError(e instanceof Error ? e.message : "checkout unavailable");
       setLoading(false);
