@@ -75,6 +75,21 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="mt-10 border-t border-line pt-6 space-y-4">
+              {product.sizeGuide && product.sizeGuide.length > 0 && (
+                <details className="group cursor-pointer">
+                  <summary className="text-[11px] uppercase tracking-[0.16em] text-muted hover:text-fg transition-colors list-none flex items-center gap-2">
+                    <span className="group-open:rotate-90 transition-transform">→</span>
+                    size guide
+                  </summary>
+                  <div className="mt-3 pl-6 text-[12px] text-muted space-y-1">
+                    {product.sizeGuide.map((guide) => (
+                      <p key={guide.label}>
+                        <span className="font-mono">{guide.label}</span> — {guide.value}
+                      </p>
+                    ))}
+                  </div>
+                </details>
+              )}
               <details className="group cursor-pointer">
                 <summary className="text-[11px] uppercase tracking-[0.16em] text-muted hover:text-fg transition-colors list-none flex items-center gap-2">
                   <span className="group-open:rotate-90 transition-transform">→</span>
