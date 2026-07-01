@@ -36,6 +36,22 @@ export function Footer() {
           >
             contact@destroydatdenim.com
           </a>
+          <div className="flex gap-4">
+            <Link href="/shipping" className="hover:text-fg transition-colors">
+              shipping
+            </Link>
+            <Link href="/returns" className="hover:text-fg transition-colors">
+              returns
+            </Link>
+            <a
+              href="https://instagram.com/destroydatdenim"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-fg transition-colors"
+            >
+              instagram
+            </a>
+          </div>
           <Link href="/archive" className="hover:text-fg transition-colors">
             archive
           </Link>

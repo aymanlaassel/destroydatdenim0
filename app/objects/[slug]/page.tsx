@@ -53,17 +53,59 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               {product.name}
             </h1>
             <div className="text-[15px] text-muted mt-3 tabular-nums">
-              {formatPrice(product.priceCents, product.currency)}
+              {product.status === "soon"
+                ? "coming soon"
+                : formatPrice(product.priceCents, product.currency)}
             </div>
 
             <div className="my-10 h-px bg-line" />
 
-            <AcquireButton slug={product.slug} sizes={product.sizes} />
+            {product.status === "soon" ? (
+              <div className="text-[12px] uppercase tracking-[0.18em] text-muted border border-line py-4 text-center">
+                next drop
+              </div>
+            ) : (
+              <AcquireButton slug={product.slug} sizes={product.sizes} />
+            )}
 
             <div className="mt-10 space-y-1.5 text-[12px] text-muted">
               <p>{product.material}</p>
               <p>{product.origin}</p>
               {product.note && <p>{product.note}</p>}
+            </div>
+
+            <div className="mt-10 border-t border-line pt-6 space-y-4">
+              {product.sizeGuide && product.sizeGuide.length > 0 && (
+                <details className="group cursor-pointer">
+                  <summary className="text-[11px] uppercase tracking-[0.16em] text-muted hover:text-fg transition-colors list-none flex items-center gap-2">
+                    <span className="group-open:rotate-90 transition-transform">→</span>
+                    size guide
+                  </summary>
+                  <div className="mt-3 pl-6 text-[12px] text-muted space-y-1">
+                    {product.sizeGuide.map((guide) => (
+                      <p key={guide.label}>
+                        <span className="font-mono">{guide.label}</span> — {guide.value}
+                      </p>
+                    ))}
+                  </div>
+                </details>
+              )}
+              <details className="group cursor-pointer">
+                <summary className="text-[11px] uppercase tracking-[0.16em] text-muted hover:text-fg transition-colors list-none flex items-center gap-2">
+                  <span className="group-open:rotate-90 transition-transform">→</span>
+                  shipping & returns
+                </summary>
+                <div className="mt-3 pl-6 text-[12px] text-muted space-y-2">
+                  <p>Orders ship within 3–5 business days.</p>
+                  <p>
+                    Returns accepted within 14 days. See our{" "}
+                    <a href="/returns" className="text-fg hover:text-muted transition-colors">
+                      full returns policy
+                    </a>
+                    .
+                  </p>
+                </div>
+              </details>
             </div>
 
             <Link
