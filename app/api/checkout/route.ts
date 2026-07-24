@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getProduct } from "@/lib/products";
+import { shopifyConfigured, getVariantId, createCheckoutUrl } from "@/lib/shopify";
 
 export const runtime = "nodejs";
 
@@ -20,7 +21,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "size unavailable" }, { status: 400 });
     }
 
-    return NextResponse.json({ ready: true });
+    if (!shopifyConfigured()) {
+      return NextResponse.json({ error: "checkout not configured yet" }, { status: 503 });
+    }
+
+    const variantId = await getVariantId(slug, size);
+    if (!variantId) {
+      return NextResponse.json({ error: "size sold out" }, { status: 409 });
+    }
+
+    const url = await createCheckoutUrl(variantId);
+    return NextResponse.json({ url });
   } catch (err) {
     const message = err instanceof Error ? err.message : "checkout unavailable";
     return NextResponse.json({ error: message }, { status: 500 });

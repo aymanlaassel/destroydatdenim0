@@ -25,12 +25,11 @@ export function AcquireButton({ slug, sizes }: Props) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ slug, size }),
       });
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok || !body.url) {
         throw new Error(body.error ?? "checkout unavailable");
       }
-      setError("Checkout coming soon via Shopify.");
-      setLoading(false);
+      window.location.href = body.url as string;
     } catch (e) {
       setError(e instanceof Error ? e.message : "checkout unavailable");
       setLoading(false);
